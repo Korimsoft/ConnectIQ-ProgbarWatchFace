@@ -56,19 +56,19 @@
         <param name="segments">100</param>
     </drawable>
     
-    <drawable id="BluetoothNotification" class="NotificationIcon">
+    <drawable id="BluetoothNotification" class="NotificationIcons.NotificationIcon">
         <param name="x">55</param>
         <param name="y">123</param>
         <param name="image">Drawables.BluetoothIcon</param>
     </drawable>
     
-    <drawable id="MessageNotification" class="NotificationIcon">
+    <drawable id="MessageNotification" class="NotificationIcons.NotificationIcon">
         <param name="x">75</param>
         <param name="y">123</param>
         <param name="image">Drawables.MessageIcon</param>
     </drawable>
     
-    <drawable id="AlarmNotification" class="NotificationIcon">
+    <drawable id="AlarmNotification" class="NotificationIcons.NotificationIcon">
         <param name="x">95</param>
         <param name="y">123</param>
         <param name="image">Drawables.AlarmIcon</param>
