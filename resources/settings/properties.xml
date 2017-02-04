@@ -1,0 +1,9 @@
+<properties>
+
+    <property id="BackgroundColor" type="number">0x000000</property>
+    <property id="ForegroundColor" type="number">0x00AAFF</property>
+    <property id="UseMilitaryFormat" type="boolean">false</property>
+    <property id="BarStartX" type="number">55</property>
+    <property id="BarWidth" type="number">145</property>
+    <property id="BarThickness" type="number">16</property>
+</properties>

@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+<layout id="WatchFace">
+	<drawable class="Background" />
+	<label id="HourLabel" text="Hour" x="45" y="0" font="Gfx.FONT_SMALL"
+		justification="Gfx.TEXT_JUSTIFY_RIGHT" color="Gfx.COLOR_BLUE" />
+	
+	<label id="MinuteLabel" text="Minute" x="45" y="20" font="Gfx.FONT_SMALL"
+		justification="Gfx.TEXT_JUSTIFY_RIGHT" color="Gfx.COLOR_BLUE" />
+	
+	<label id="MonthLabel" text="Month" x="45" y="40" font="Gfx.FONT_SMALL"
+		justification="Gfx.TEXT_JUSTIFY_RIGHT" color="Gfx.COLOR_BLUE" />
+	
+	<label id="DayLabel" text="Date" x="45" y="60" font="Gfx.FONT_SMALL"
+		justification="Gfx.TEXT_JUSTIFY_RIGHT" color="Gfx.COLOR_BLUE" />
+		
+	<label id="StepsLabel" text="Steps" x="45" y="80" font="Gfx.FONT_SMALL"
+		justification="Gfx.TEXT_JUSTIFY_RIGHT" color="Gfx.COLOR_BLUE" />
+	
+	<label id="BatteryLabel" text="Battery" x="45" y="100" font="Gfx.FONT_SMALL"
+		justification="Gfx.TEXT_JUSTIFY_RIGHT" color="Gfx.COLOR_BLUE" />
+		
+	<drawable id="HourBar" class="Bar">
+		<param name="x">55</param>
+		<param name="y">3</param>
+		<param name="segments">24</param>
+	</drawable>
+	
+	<drawable id="MinuteBar" class="Bar">
+        <param name="x">55</param>
+        <param name="y">23</param>
+        <param name="segments">60</param>
+    </drawable>
+    
+    <drawable id="MonthBar" class="Bar">
+        <param name="x">55</param>
+        <param name="y">43</param>
+        <param name="segments">12</param>
+    </drawable>
+    
+    <drawable id="DayBar" class="Bar">
+        <param name="x">55</param>
+        <param name="y">63</param>
+        <param name="segments">31</param>
+    </drawable>
+    
+    
+    <drawable id="StepsBar" class="Bar">
+        <param name="x">55</param>
+        <param name="y">83</param>
+        <param name="segments">100</param>
+    </drawable>
+    
+    <drawable id="BatteryBar" class="Bar">
+        <param name="x">55</param>
+        <param name="y">103</param>
+        <param name="segments">100</param>
+    </drawable>
+    
+    <drawable id="BluetoothNotification" class="NotificationIcon">
+        <param name="x">55</param>
+        <param name="y">123</param>
+        <param name="image">Drawables.BluetoothIcon</param>
+    </drawable>
+    
+    <drawable id="MessageNotification" class="NotificationIcon">
+        <param name="x">75</param>
+        <param name="y">123</param>
+        <param name="image">Drawables.MessageIcon</param>
+    </drawable>
+    
+    <drawable id="AlarmNotification" class="NotificationIcon">
+        <param name="x">95</param>
+        <param name="y">123</param>
+        <param name="image">Drawables.AlarmIcon</param>
+    </drawable>
+    
+     
+</layout>

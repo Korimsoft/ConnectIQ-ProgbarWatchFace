@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<drawables>
+    <bitmap id="LauncherIcon" filename="launcher_icon.png" />
+    <bitmap id="BarOutline" filename="bar_outline.png" />
+    <bitmap id="BluetoothIcon" filename="bluetooth.png" />
+    <bitmap id="MessageIcon" filename="envelope.png" />
+    <bitmap id="AlarmIcon" filename="alarm.png" />
+    
+    <drawable-list id="VerticalDivider" x="50" y="center">
+        <shape type="rectangle" y="center" width="1" height="142" />
+    </drawable-list>
+    
+</drawables>
