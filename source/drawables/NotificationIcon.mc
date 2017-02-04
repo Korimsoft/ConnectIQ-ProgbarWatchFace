@@ -2,6 +2,8 @@ using Toybox.WatchUi as Ui;
 
 class NotificationIcon extends Ui.Drawable {
 
+    hidden const voidIcon = Ui.loadResource(Rez.Drawables.VoidIcon);
+
     hidden var visible = false;
     hidden var posX, posY;
     hidden var image;
@@ -9,7 +11,7 @@ class NotificationIcon extends Ui.Drawable {
    function initialize(params){
         Drawable.initialize(params);
 
-        System.println("***\tCreating notification icon\t***");
+        System.println("***Instantiating notification icon " + Drawable + "***");
         posX = params.get(:x);
         System.println("Notification X:" + posX);
 
@@ -19,19 +21,22 @@ class NotificationIcon extends Ui.Drawable {
         var imageID = params.get(:image);
 
         image = Ui.loadResource(imageID);
-        System.println("Icon: " + image);
+        System.println("Icon: " + imageID + ": " + image);
    }
 
    function setVisible(newVisible){
+     System.println("Setting visibility of icon to :" + newVisible);
      visible = newVisible;
    }
 
    function draw(dc){
+        System.println("NotificationIcon.draw:");
         if(visible){
             System.println("Drawing icon");
             dc.drawBitmap(posX, posY, image);
         } else {
-            System.println("Icon invisible");
+            System.println("Icon invisible: " + image);
+            dc.drawBitmap(posX, posY, voidIcon);
         }
 
    }

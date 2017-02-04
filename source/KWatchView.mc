@@ -48,19 +48,19 @@ class KWatchView extends Ui.WatchFace {
         updateBar("StepsBar", stepsGoalPercent, dc);
         updateBar("BatteryBar", batt, dc);
 
-        updateNotificationIcon("BluetoothNotification", true, dc);
-        updateNotificationIcon("MessageNotification", true, dc);
-        updateNotificationIcon("AlarmNotification", true, dc);
+        var devSettings = Sys.getDeviceSettings();
+
+        updateNotificationIcon("BluetoothNotification", devSettings.phoneConnected, dc);
+        updateNotificationIcon("MessageNotification", devSettings.notificationCount > 0, dc);
+        updateNotificationIcon("AlarmNotification", devSettings.alarmCount > 0, dc);
 
         View.onUpdate(dc);
     }
 
     hidden function updateNotificationIcon(iconId, visible, dc){
-        System.println("Updating " + iconId);
+        System.println("Updating " + iconId + ": visible: " + visible );
 
         var icon = View.findDrawableById(iconId);
-        System.println(icon);
-
         icon.setVisible(visible);
         icon.draw(dc);
     }
@@ -100,6 +100,8 @@ class KWatchView extends Ui.WatchFace {
 
         updatedDrawable.setText(value.format(format));
     }
+
+
 
 
 

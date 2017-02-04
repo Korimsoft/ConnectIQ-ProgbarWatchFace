@@ -14,7 +14,7 @@ class Bar extends Ui.Drawable
 
         Drawable.initialize(params);
 
-        System.println("***\tCreating bar\t***");
+        System.println("***Instantiating  bar " + Drawable + "***");
 
         posX = params.get(:x);
         posY = params.get(:y);
