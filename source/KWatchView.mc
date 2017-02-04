@@ -26,19 +26,15 @@ class KWatchView extends Ui.WatchFace {
     function onUpdate(dc) {
 
         var twoDigitFormat = "%02d";
-
         var clockTime = Sys.getClockTime();
-
         var date = Time.today();
+        var timeInfo = Time.Gregorian.info(date, Time.FORMAT_SHORT);
+        var month = timeInfo.month;
+        var day = timeInfo.day;
 
-        var info = Time.Gregorian.info(date, Time.FORMAT_SHORT);
-
-        var month = info.month;
-        var day = info.day;
-       // var dow = info.day_of_week;
-
-        var stepsGoalPercent = getStepsGoalPercent();
-
+        var devSettings = Sys.getDeviceSettings();
+        var actInfo = Act.getInfo();
+        var stepsGoalPercent = getStepsGoalPercent(actInfo);
         var batt = Sys.getSystemStats().battery;
 
         updateBar("HourBar", clockTime.hour, dc);
@@ -48,11 +44,10 @@ class KWatchView extends Ui.WatchFace {
         updateBar("StepsBar", stepsGoalPercent, dc);
         updateBar("BatteryBar", batt, dc);
 
-        var devSettings = Sys.getDeviceSettings();
-
         updateNotificationIcon("BluetoothNotification", devSettings.phoneConnected, dc);
         updateNotificationIcon("MessageNotification", devSettings.notificationCount > 0, dc);
         updateNotificationIcon("AlarmNotification", devSettings.alarmCount > 0, dc);
+        updateNotificationIcon("MoveNotification", actInfo.moveBarLevel > 0, dc);
 
         View.onUpdate(dc);
     }
@@ -75,14 +70,12 @@ class KWatchView extends Ui.WatchFace {
         bar.draw(dc);
     }
 
-    hidden function getStepsGoalPercent(){
-
-        var info = Act.getInfo();
+    hidden function getStepsGoalPercent(actInfo){
 
         var goalPerc;
 
-        if(info.stepGoal.toDouble() > 0){
-            goalPerc = (info.steps.toDouble()/info.stepGoal.toDouble())*100;
+        if(actInfo.stepGoal.toDouble() > 0){
+            goalPerc = (actInfo.steps.toDouble()/actInfo.stepGoal.toDouble())*100;
         }
         else {
             goalPerc = 0;

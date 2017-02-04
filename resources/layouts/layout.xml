@@ -74,5 +74,12 @@
         <param name="image">Drawables.AlarmIcon</param>
     </drawable>
     
+    <drawable id="MoveNotification" class="NotificationIcons.NotificationIcon">
+        <param name="x">115</param>
+        <param name="y">123</param>
+        <param name="image">Drawables.MoveIcon</param>
+    </drawable>
+    
+    
      
 </layout>

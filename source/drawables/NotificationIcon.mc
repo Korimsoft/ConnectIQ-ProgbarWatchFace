@@ -7,8 +7,6 @@ hidden const voidIcon = Ui.loadResource(Rez.Drawables.VoidIcon);
 
 class NotificationIcon extends Ui.Drawable {
 
-
-
     hidden var visible = false;
     hidden var posX, posY;
     hidden var image;
