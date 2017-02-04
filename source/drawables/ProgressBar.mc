@@ -1,10 +1,10 @@
 using Toybox.WatchUi as Ui;
 
-module Bars {
+module ProgressBars {
 
 hidden const outline = Ui.loadResource(Rez.Drawables.BarOutline);
 
-class Bar extends Ui.Drawable
+class ProgressBar extends Ui.Drawable
 {
     hidden var posX, posY, segmentation;
     hidden var filledRatio = 0;

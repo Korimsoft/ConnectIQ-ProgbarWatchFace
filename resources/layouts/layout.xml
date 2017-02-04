@@ -19,38 +19,38 @@
 	<label id="BatteryLabel" text="Battery" x="45" y="100" font="Gfx.FONT_SMALL"
 		justification="Gfx.TEXT_JUSTIFY_RIGHT" color="Gfx.COLOR_BLUE" />
 		
-	<drawable id="HourBar" class="Bar">
+	<drawable id="HourBar" class="ProgressBars.ProgressBar">
 		<param name="x">55</param>
 		<param name="y">3</param>
 		<param name="segments">24</param>
 	</drawable>
 	
-	<drawable id="MinuteBar" class="Bar">
+	<drawable id="MinuteBar" class="ProgressBars.ProgressBar">
         <param name="x">55</param>
         <param name="y">23</param>
         <param name="segments">60</param>
     </drawable>
     
-    <drawable id="MonthBar" class="Bar">
+    <drawable id="MonthBar" class="ProgressBars.ProgressBar">
         <param name="x">55</param>
         <param name="y">43</param>
         <param name="segments">12</param>
     </drawable>
     
-    <drawable id="DayBar" class="Bar">
+    <drawable id="DayBar" class="ProgressBars.ProgressBar">
         <param name="x">55</param>
         <param name="y">63</param>
         <param name="segments">31</param>
     </drawable>
     
     
-    <drawable id="StepsBar" class="Bar">
+    <drawable id="StepsBar" class="ProgressBars.ProgressBar">
         <param name="x">55</param>
         <param name="y">83</param>
         <param name="segments">100</param>
     </drawable>
     
-    <drawable id="BatteryBar" class="Bar">
+    <drawable id="BatteryBar" class="ProgressBars.ProgressBar">
         <param name="x">55</param>
         <param name="y">103</param>
         <param name="segments">100</param>
