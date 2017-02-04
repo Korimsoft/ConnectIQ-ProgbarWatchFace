@@ -8,7 +8,8 @@ using Toybox.Position;
 
 class KWatchView extends Ui.WatchFace {
 
-    hidden var isInSleepMode = false;
+    // Days of month lookup - February is close enough.
+    hidden const days_per_month = [ 0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 
     function initialize() {
         WatchFace.initialize();
@@ -35,6 +36,10 @@ class KWatchView extends Ui.WatchFace {
         var month = timeInfo.month;
         var day = timeInfo.day;
 
+        // Lookup the number of segments for the day progress bar.
+        var dayBarSegmentCount = days_per_month[month];
+
+
         var devSettings = Sys.getDeviceSettings();
         var actInfo = Act.getInfo();
         var stepsGoalPercent = getStepsGoalPercent(actInfo);
@@ -43,7 +48,7 @@ class KWatchView extends Ui.WatchFace {
         updateBar("HourBar", clockTime.hour, dc);
         updateBar("MinuteBar", clockTime.min, dc);
         updateBar("MonthBar", month, dc);
-        updateBar("DayBar", day, dc);
+        updateDayBar("DayBar", dayBarSegmentCount, day, dc); //This one is specific...different count of days in the month...
         updateBar("StepsBar", stepsGoalPercent, dc);
         updateBar("BatteryBar", batt, dc);
 
@@ -64,11 +69,16 @@ class KWatchView extends Ui.WatchFace {
     }
 
     hidden function updateBar(barId, value, dc){
-        System.println("Updating " + barId);
 
         var bar = View.findDrawableById(barId);
-        System.println(bar);
+        bar.setFill(value);
+        bar.draw(dc);
+    }
 
+    hidden function updateDayBar(barId, segments, value, dc){
+
+        var bar = View.findDrawableById(barId);
+        bar.setSegmentation(segments);
         bar.setFill(value);
         bar.draw(dc);
     }
@@ -87,10 +97,10 @@ class KWatchView extends Ui.WatchFace {
     }
 
 
-    hidden function updateField(field, value, format){
-        var color = Gfx.COLOR_BLUE;
+    hidden function updateTextField(fieldId, value, format){
 
-        var updatedDrawable = View.findDrawableById(field);
+        var color = Gfx.COLOR_BLUE;
+        var updatedDrawable = View.findDrawableById(fieldId);
 
         updatedDrawable.setColor(color);
 
