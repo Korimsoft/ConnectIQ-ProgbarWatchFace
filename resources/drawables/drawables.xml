@@ -7,9 +7,5 @@
     <bitmap id="AlarmIcon" filename="alarm.png" />
     <bitmap id="MoveIcon" filename="move.png"/>
     <bitmap id="VoidIcon" filename="void.png" />
-    
-    <drawable-list id="VerticalDivider" x="50" y="center">
-        <shape type="rectangle" y="center" width="1" height="142" />
-    </drawable-list>
-    
+        
 </drawables>

@@ -4,8 +4,11 @@ using Toybox.System as Sys;
 using Toybox.Lang as Lang;
 using Toybox.Application as App;
 using Toybox.ActivityMonitor as Act;
+using Toybox.Position;
 
 class KWatchView extends Ui.WatchFace {
+
+    hidden var isInSleepMode = false;
 
     function initialize() {
         WatchFace.initialize();
