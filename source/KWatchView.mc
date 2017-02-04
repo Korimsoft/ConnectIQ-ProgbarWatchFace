@@ -68,6 +68,7 @@ class KWatchView extends Ui.WatchFace {
         icon.draw(dc);
     }
 
+    //! Update the progress bar with new value.
     hidden function updateBar(barId, value, dc){
 
         var bar = View.findDrawableById(barId);

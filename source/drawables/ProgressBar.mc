@@ -2,6 +2,7 @@ using Toybox.WatchUi as Ui;
 
 module ProgressBars {
 
+//! An outline of the progress bar - this will be rendered as a background for each progress bar.
 hidden const outline = Ui.loadResource(Rez.Drawables.BarOutline);
 
 class ProgressBar extends Ui.Drawable
@@ -27,6 +28,7 @@ class ProgressBar extends Ui.Drawable
 
     }
 
+    //! Draw the progress bar on the drawing context.
     function draw(dc)
     {
 
@@ -36,9 +38,9 @@ class ProgressBar extends Ui.Drawable
 
     }
 
-    // Set the segmentation of the progress bar. This function will accept
-    // values ranging from 1 to 100 since that is the minimum and maximum
-    // for the app.
+    //! Set the segmentation of the progress bar. This function will accept
+    //! values ranging from 1 to 100 since that is the minimum and maximum
+    //! for the app.
     function setSegmentation(value){
 
         if(value < 1 || value > 100){
@@ -48,6 +50,7 @@ class ProgressBar extends Ui.Drawable
         segmentation = value;
     }
 
+    //! Set the width of the fill of the progress bar.
     function setFill(value){
 
         if(value >= 0 && value <= segmentation){
