@@ -7,7 +7,7 @@ hidden const outline = Ui.loadResource(Rez.Drawables.BarOutline);
 
 class ProgressBar extends Ui.Drawable
 {
-    hidden var posX, posY, segmentation;
+    hidden var segmentation;
     hidden var filledRatio = 0;
 
     hidden var defaultHeight;
@@ -19,8 +19,12 @@ class ProgressBar extends Ui.Drawable
 
         Drawable.initialize(params);
 
-        posX = params.get(:x);
-        posY = params.get(:y);
+        //Drawable should have locX and locY parameters,
+        //however, they apparently cannot be  initialized in the layout.xml (as x and y)
+        //
+        locX = params.get(:x);
+        locY = params.get(:y);
+
         segmentation=params.get(:segments);
 
         defaultHeight = Application.getApp().getProperty("BarThickness");
@@ -32,9 +36,9 @@ class ProgressBar extends Ui.Drawable
     function draw(dc)
     {
 
-        dc.drawBitmap(posX, posY, outline);
+        dc.drawBitmap(locX, locY, outline);
 
-        dc.fillRectangle(posX, posY, filledWidth, defaultHeight);
+        dc.fillRectangle(locX, locY, filledWidth, defaultHeight);
 
     }
 
