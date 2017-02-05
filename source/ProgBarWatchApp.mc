@@ -2,7 +2,7 @@ using Toybox.Application as App;
 using Toybox.WatchUi as Ui;
 
 
-class KWatchApp extends App.AppBase {
+class ProgBarWatchApp extends App.AppBase {
 
     function initialize() {
         AppBase.initialize();
@@ -18,7 +18,7 @@ class KWatchApp extends App.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() {
-        return [ new KWatchView() ];
+        return [ new ProgBarWatchView() ];
     }
 
     // New app settings have been received so trigger a UI update

@@ -6,7 +6,7 @@ using Toybox.Application as App;
 using Toybox.ActivityMonitor as Act;
 using Toybox.Position;
 
-class KWatchView extends Ui.WatchFace {
+class ProgBarWatchView extends Ui.WatchFace {
 
     // Days of month lookup - February is close enough.
     hidden const days_per_month = [ 0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
