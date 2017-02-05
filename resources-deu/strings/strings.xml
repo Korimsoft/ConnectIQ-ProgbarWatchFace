@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<strings>
+
+    <string id="AppName">ProgBar Zifferblatt</string>
+    
+    
+    <string id="HourLabel">Uhr</string>
+    <string id="MinuteLabel">Minute</string>
+    <string id="MonthLabel">Monat</string>
+    <string id="DayLabel">Datum</string>
+    <string id="StepsLabel">Schritte</string>
+    <string id="BatteryLabel">Batterie</string>
+
+</strings>

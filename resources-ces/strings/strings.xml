@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<strings>
+
+    <string id="AppName">Ciferník ProgBar</string>
+    
+    
+    <string id="HourLabel">Hodiny</string>
+    <string id="MinuteLabel">Minuty</string>
+    <string id="MonthLabel">Měsíc</string>
+    <string id="DayLabel">Datum</string>
+    <string id="StepsLabel">Kroky</string>
+    <string id="BatteryLabel">Baterie</string>
+
+</strings>
