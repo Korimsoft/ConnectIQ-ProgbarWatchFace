@@ -1,6 +1,7 @@
+<?xml version="1.0"?>
 <strings>
 
-    <string id="AppName">KWatch</string>
+    <string id="AppName">ProgBar Watch Face</string>
 
     <string id="BackgroundColorTitle">Background Color</string>
     <string id="ForegroundColorTitle">Foreground Color</string>
@@ -12,5 +13,12 @@
     <string id="ColorWhite">White</string>
     <string id="ColorBlue">Blue</string>
     <string id="ColorRed">Red</string>
+    
+    <string id="HourLabel">Hour</string>
+    <string id="MinuteLabel">Minute</string>
+    <string id="MonthLabel">Month</string>
+    <string id="DayLabel">Date</string>
+    <string id="StepsLabel">Steps</string>
+    <string id="BatteryLabel">Battery</string>
 
 </strings>
