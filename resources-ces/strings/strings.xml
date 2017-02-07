@@ -3,6 +3,16 @@
 
     <string id="AppName">Ciferník ProgBar</string>
     
+    <string id="BackgroundColorTitle">Barva pozadí</string>
+    <string id="ForegroundColorTitle">Barva popředí</string>
+    <string id="MilitaryFormatTitle">24-hodinový formát</string>
+
+    <string id="ColorBlack">Černá</string>
+    <string id="ColorDarkGray">Tmavě šedá</string>
+    <string id="ColorLightGray">Šedá</string>
+    <string id="ColorWhite">Bílá</string>
+    <string id="ColorBlue">Modrá</string>
+    <string id="ColorRed">Červená</string>
     
     <string id="HourLabel">Hodiny</string>
     <string id="MinuteLabel">Minuty</string>
