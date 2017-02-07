@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<strings>
+
+    <string id="AppName">ProgBar Zifferblatt</string>
+    
+    <string id="BackgroundColorTitle">Hintergrundfarbe</string>
+    <string id="ForegroundColorTitle">Vordergrundfarbe</string>
+    <string id="MilitaryFormatTitle">24-Stunden Zeitformat</string>
+
+    <string id="ColorBlack">Schwarz</string>
+    <string id="ColorDarkGray">Dunkelgrau</string>
+    <string id="ColorLightGray">Hellgrau</string>
+    <string id="ColorWhite">Weiss</string>
+    <string id="ColorBlue">Blau</string>
+    <string id="ColorRed">Rot</string>
+    
+    <string id="HourLabel">Uhr</string>
+    <string id="MinuteLabel">Minute</string>
+    <string id="MonthLabel">Monat</string>
+    <string id="DayLabel">Datum</string>
+    <string id="StepsLabel">Schritte</string>
+    <string id="BatteryLabel">Batterie</string>
+
+</strings>

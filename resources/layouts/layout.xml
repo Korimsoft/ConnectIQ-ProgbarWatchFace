@@ -1,22 +1,22 @@
 <?xml version="1.0" ?>
 <layout id="WatchFace">
 	<drawable class="Background" />
-	<label id="HourLabel" text="Hour" x="45" y="0" font="Gfx.FONT_SMALL"
+	<label id="HourLabel" text="@Strings.HourLabel" x="45" y="0" font="Gfx.FONT_SMALL"
 		justification="Gfx.TEXT_JUSTIFY_RIGHT" color="Gfx.COLOR_BLUE" />
 	
-	<label id="MinuteLabel" text="Minute" x="45" y="20" font="Gfx.FONT_SMALL"
+	<label id="MinuteLabel" text="@Strings.MinuteLabel" x="45" y="20" font="Gfx.FONT_SMALL"
 		justification="Gfx.TEXT_JUSTIFY_RIGHT" color="Gfx.COLOR_BLUE" />
 	
-	<label id="MonthLabel" text="Month" x="45" y="40" font="Gfx.FONT_SMALL"
+	<label id="MonthLabel" text="@Strings.MonthLabel" x="45" y="40" font="Gfx.FONT_SMALL"
 		justification="Gfx.TEXT_JUSTIFY_RIGHT" color="Gfx.COLOR_BLUE" />
 	
-	<label id="DayLabel" text="Date" x="45" y="60" font="Gfx.FONT_SMALL"
+	<label id="DayLabel" text="@Strings.DayLabel" x="45" y="60" font="Gfx.FONT_SMALL"
 		justification="Gfx.TEXT_JUSTIFY_RIGHT" color="Gfx.COLOR_BLUE" />
 		
-	<label id="StepsLabel" text="Steps" x="45" y="80" font="Gfx.FONT_SMALL"
+	<label id="StepsLabel" text="@Strings.StepsLabel" x="45" y="80" font="Gfx.FONT_SMALL"
 		justification="Gfx.TEXT_JUSTIFY_RIGHT" color="Gfx.COLOR_BLUE" />
 	
-	<label id="BatteryLabel" text="Battery" x="45" y="100" font="Gfx.FONT_SMALL"
+	<label id="BatteryLabel" text="@Strings.BatteryLabel" x="45" y="100" font="Gfx.FONT_SMALL"
 		justification="Gfx.TEXT_JUSTIFY_RIGHT" color="Gfx.COLOR_BLUE" />
 		
 	<drawable id="HourBar" class="ProgressBars.ProgressBar">
