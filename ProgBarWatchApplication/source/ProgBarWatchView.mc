@@ -3,6 +3,7 @@ using Toybox.Graphics as Gfx;
 using Toybox.System as Sys;
 using Toybox.Lang as Lang;
 using Toybox.Application as App;
+using Toybox.ActivityMonitor as Act;
 using DateTimeUtility as Dut;
 using ActivityUtility as Aut;
 using SystemUtility as Sut;
@@ -27,8 +28,12 @@ class ProgBarWatchView extends Ui.WatchFace {
     // Update the view
     function onUpdate(dc) {
 
+        //Reload the necessary information
         Dut.now();
-        Aut.reload();
+        var actInfo = Act.getInfo();
+        Aut.setActInfo(actInfo);
+
+        //Update the views
 
         updateBar("HourBar", Dut.getCurrentHour(), dc);
         updateBar("MinuteBar", Dut.getCurrentMinute(), dc);

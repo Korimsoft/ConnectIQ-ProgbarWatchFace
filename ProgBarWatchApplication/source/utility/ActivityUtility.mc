@@ -1,5 +1,4 @@
-using Toybox.ActivityMonitor as Act;
-
+//! Utility methods for calculating activity information
 module ActivityUtility{
     hidden var actInfo = null;
 
