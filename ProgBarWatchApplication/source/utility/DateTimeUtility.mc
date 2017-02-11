@@ -9,32 +9,39 @@ module DateTimeUtility{
     hidden var currentTimeInfo;
     hidden var clockTime;
 
+    //! Set the date and time format
+    //! Input: Time format forom Toybox.Time (eg. TIME_FORMAT_SHORT)
     function setFormat(timeFormat){
         format = timeFormat;
     }
 
+    //! Sets the date and time information to current time moment
     function now(){
         setTime(System.getClockTime());
         setDate(Time.today());
     }
 
-
+    //! Sets the date
     function setDate(date){
         currentTimeInfo = Time.Gregorian.info(date, format);
     }
 
+    //! Sets the time
     function setTime(time){
         clockTime=time;
     }
 
+    //! Gets the month provided by the date state of this module
     function getCurrentMonth(){
         return currentTimeInfo.month;
     }
 
+    //! Gets the date provided by the state of the module
     function getCurrentDay(){
         return currentTimeInfo.day;
     }
 
+    //!
     function getCurrentHour(){
         return clockTime.hour;
     }

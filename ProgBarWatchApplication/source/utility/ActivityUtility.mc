@@ -1,7 +1,7 @@
 using Toybox.ActivityMonitor as Act;
 
 module ActivityUtility{
-    hidden var actInfo = Act.getInfo();
+    hidden var actInfo = null;
 
     function getStepsGoalPercent(){
 
@@ -20,7 +20,7 @@ module ActivityUtility{
         return actInfo.moveBarLevel > 0;
     }
 
-    function reload(){
-        actInfo = Act.getInfo();
+    function setActInfo(newActInfo){
+        actInfo = newActInfo;
     }
 }
