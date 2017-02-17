@@ -1,5 +1,5 @@
 //! Mock object that simulates the Toybox.ActivityMonitor
-class ActivityMonitorMock{
+class ActivityInfoMock{
      var moveBarLevel = 0;
      var steps = 0;
      var stepGoal = 0;
@@ -8,9 +8,9 @@ class ActivityMonitorMock{
      //!
      function initialize(valuesDictionary){
 
-        moveBarLevel = values[:moveBarLevel];
-        steps = values[:steps];
-        stepGoal = values[:stepGoal];
+        moveBarLevel = valuesDictionary[:moveBarLevel];
+        steps = valuesDictionary[:steps];
+        stepGoal = valuesDictionary[:stepGoal];
 
      }
 }

@@ -1,3 +1,4 @@
+@echo off
 echo "====Running the unit tests===="
 echo "Start your horses"
 call connectiq
@@ -6,5 +7,5 @@ call connectiq
 
 echo "Do the monkey business..."
 call monkeydo.bat ".\bin\ProgBarWatchTests.prg" /t > "TestResult.txt"
-PAUSE
+echo "Tests done, see the results..."
 

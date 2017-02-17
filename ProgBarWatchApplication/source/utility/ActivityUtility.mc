@@ -1,3 +1,5 @@
+using Toybox.ActivityMonitor;
+
 //! Utility methods for calculating activity information
 module ActivityUtility{
     hidden var actInfo = null;
@@ -16,7 +18,7 @@ module ActivityUtility{
     }
 
     function shouldMove(){
-        return actInfo.moveBarLevel > 0;
+        return actInfo.moveBarLevel > ActivityMonitor.MOVE_BAR_LEVEL_MIN;
     }
 
     function setActInfo(newActInfo){
