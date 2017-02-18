@@ -2,8 +2,9 @@ using Toybox.System;
 using Toybox.Time;
 
 module DateTimeUtility{
-// Days of month lookup - February is close enough.
-    hidden const days_per_month = [ 0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+
+    // Days of month lookup
+    hidden const days_per_month = [ 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 
     hidden var format = Time.FORMAT_SHORT;
     hidden var currentTimeInfo;
@@ -23,12 +24,24 @@ module DateTimeUtility{
 
     //! Sets the date
     function setDate(date){
-        currentTimeInfo = Time.Gregorian.info(date, format);
+        if (date instanceof Toybox.Time.Moment){
+            currentTimeInfo = Time.Gregorian.info(date, format);
+        } else {
+            throw new UnexpectedTypeException(Toybox.Time.Moment, date, "setDate()");
+        }
     }
 
     //! Sets the time
     function setTime(time){
-        clockTime=time;
+        if(time instanceof Toybox.System.ClockTime){
+            clockTime=time;
+        } else {
+            throw new UnexpectedTypeException(Toybox.Time, time, "setTime()");
+        }
+    }
+
+    function getCurrentYear(){
+        return currentTimeInfo.year;
     }
 
     //! Gets the month provided by the date state of this module
@@ -41,17 +54,39 @@ module DateTimeUtility{
         return currentTimeInfo.day;
     }
 
-    //!
+    //! Gets the current hour.
     function getCurrentHour(){
         return clockTime.hour;
     }
 
+    //! Gets the current minute
     function getCurrentMinute(){
         return clockTime.min;
     }
 
+    //! Return how many days are in current month
     function getDaysPerCurrentMonth(){
-        return days_per_month[getCurrentMonth()];
+        var currentMonth = getCurrentMonth();
+        var currentYear = getCurrentYear();
+
+        // Detect february on leap year...
+        if(currentMonth == 1 && isLeapYear(currentYear)){
+            return days_per_month[currentMonth] + 1;
+        }
+
+        return days_per_month[currentMonth];
+    }
+
+
+    //! Check whtther a year is a leap year
+    function isLeapYear(year){
+
+        if(!(year instanceof Toybox.Lang.Number)){
+            throw new UnexpectedTypeException(Number, year, "isLeapYear()");
+        }
+
+        return (year % 4 == 0);
+
     }
 
 }
