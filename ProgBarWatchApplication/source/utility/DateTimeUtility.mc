@@ -1,5 +1,6 @@
 using Toybox.System;
 using Toybox.Time;
+using Toybox.Lang;
 
 module DateTimeUtility{
 
@@ -82,7 +83,7 @@ module DateTimeUtility{
     function isLeapYear(year){
 
         if(!(year instanceof Toybox.Lang.Number)){
-            throw new UnexpectedTypeException(Number, year, "isLeapYear()");
+            throw new Toybox.Lang.UnexpectedTypeException(Number, year, "isLeapYear()");
         }
 
         return (year % 4 == 0);
