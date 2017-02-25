@@ -22,7 +22,7 @@ module DateTimeUtilityTests{
         try{
             Dut.isLeapYear("Wrong argument...");
         } catch (ex) {
-            if(ex instanceof UnexpectedTypeException){
+            if(ex instanceof Toybox.Lang.UnexpectedTypeException){
                 return true;
             }
         }
@@ -30,5 +30,70 @@ module DateTimeUtilityTests{
         return false;
     }
 
+    //! February on leap year has 29 days
+    (:test)
+    function testDaysPerFebruaryLeap(logger){
+        var days = Dut.getDaysPerMonth(2, LEAP_YEAR);
+        logger.debug("Days expected: 29, returned:" + days);
+        return days == 29;
+    }
+
+    //! February on non-leap year has 28 days
+    (:test)
+    function testDaysPerFebruaryNonLeap(logger){
+        var days = Dut.getDaysPerMonth(2, NON_LEAP_YEAR);
+        logger.debug("Days expected: 28, returned:" + days);
+        return days == 28;
+    }
+
+    (:test)
+    function testIrrelevantmonthInputLow(logger){
+        try{
+            Dut.getDaysPerMonth(-1, NON_LEAP_YEAR);
+        }
+        catch (ex){
+            if (ex instanceof InvalidValueException){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    (:test)
+    function testIrrelevantmonthInputHigh(logger){
+        try{
+            Dut.getDaysPerMonth(13, NON_LEAP_YEAR);
+        }
+        catch (ex){
+            if (ex instanceof InvalidValueException){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    //! Wrong input type throws an UnexpectedTypeException
+    (:test)
+    function testIrrelevantYearInput(logger){
+        try{
+            Dut.getDaysPerMonth(1, "hello");
+        }
+        catch (ex){
+            
+           if(ex instanceof Toybox.Lang.UnexpectedTypeException){
+                logger.debug("Expected exception caught");
+                logger.debug(ex.getErrorMessage());
+                return true;
+            } else {
+                logger.warning("Different exception thrown!");
+                logger.error(ex.printStackTrace());
+                return false;
+            }
+        }
+        logger.error("No expception thrown, that should not have happened!");
+        return false;
+    }
 
 }

@@ -1,7 +1,7 @@
 //! Initialize the DateTimeUtility with testing data
 class DateTimeFactory{
 
-    hidden var dateTimeFormat
+    hidden var dateTimeFormat;
 
     function Initialize(format){
         dateTimeFormat = format;

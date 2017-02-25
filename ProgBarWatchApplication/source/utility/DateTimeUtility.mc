@@ -1,3 +1,4 @@
+using Toybox;
 using Toybox.System;
 using Toybox.Time;
 using Toybox.Lang;
@@ -65,29 +66,41 @@ module DateTimeUtility{
         return clockTime.min;
     }
 
-    //! Return how many days are in current month
-    function getDaysPerCurrentMonth(){
-        var currentMonth = getCurrentMonth();
-        var currentYear = getCurrentYear();
+    //! Return how many days are in month of a year (thanks, February...)
+    function getDaysPerMonth(month, year){
 
-        // Detect february on leap year...
-        if(currentMonth == 1 && isLeapYear(currentYear)){
-            return days_per_month[currentMonth] + 1;
+        checkCorrectType(year, Toybox.Lang.Number);
+
+        //Months are indexed starting by 1...
+        if(month < 1 || month > 12 || !(month instanceof Toybox.Lang.Number)){
+            throw new InvalidValueException("Invalid month input: " + month);
         }
 
-        return days_per_month[currentMonth];
+        // Detect february on leap year...
+        if(month == 2 && isLeapYear(year)){
+            return days_per_month[month] + 1;
+        }
+        else{
+             return days_per_month[month];
+        }
     }
 
 
-    //! Check whtther a year is a leap year
+    //! Check whtther a year is a leap year (Approximately...see the rules about the leap years)
     function isLeapYear(year){
 
-        if(!(year instanceof Toybox.Lang.Number)){
-            throw new Toybox.Lang.UnexpectedTypeException(Number, year, "isLeapYear()");
-        }
+        checkCorrectType(year, Toybox.Lang.Number);
 
         return (year % 4 == 0);
 
+    }
+
+    // TODO: This should be moved to a separate Module in order to be accessible from anywhere 
+    // And also testable...
+    hidden function checkCorrectType(tested, type){
+        if(!(tested instanceof type)){
+            throw new Toybox.Lang.UnexpectedTypeException("", tested, "");
+        }
     }
 
 }
