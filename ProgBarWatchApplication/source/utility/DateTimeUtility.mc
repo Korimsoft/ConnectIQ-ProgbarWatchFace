@@ -3,6 +3,7 @@ using Toybox.System;
 using Toybox.Time;
 using Toybox.Lang;
 
+//!
 module DateTimeUtility{
 
     // Days of month lookup
@@ -10,7 +11,7 @@ module DateTimeUtility{
 
     hidden var format = Time.FORMAT_SHORT;
     hidden var currentTimeInfo;
-    hidden var clockTime;
+    //hidden var clockTime;
 
     //! Set the date and time format
     //! Input: Time format forom Toybox.Time (eg. TIME_FORMAT_SHORT)
@@ -20,27 +21,36 @@ module DateTimeUtility{
 
     //! Sets the date and time information to current time moment
     function now(){
-        setTime(System.getClockTime());
-        setDate(Time.today());
-    }
+        var moment = Time.now();
+        currentTimeInfo = Time.Gregorian.info(moment, format);
 
-    //! Sets the date
-    function setDate(date){
-        if (date instanceof Toybox.Time.Moment){
-            currentTimeInfo = Time.Gregorian.info(date, format);
-        } else {
-            throw new UnexpectedTypeException(Toybox.Time.Moment, date, "setDate()");
-        }
-    }
+        //setTime(System.getClockTime());
+        //setDate(Time.today());
+   }
 
-    //! Sets the time
-    function setTime(time){
-        if(time instanceof Toybox.System.ClockTime){
-            clockTime=time;
-        } else {
-            throw new UnexpectedTypeException(Toybox.Time, time, "setTime()");
-        }
-    }
+   //! Initialize the module with custom date/time options
+   function moment(options){
+        var moment = Time.Gregorian.moment(options);
+        currentTimeInfo = Time.Gregorian.info(moment, format);
+   }
+
+//   //! Sets the date
+//   function setDate(date){
+//        if (date instanceof Toybox.Time.Moment){
+//            currentTimeInfo = Time.Gregorian.info(date, format);
+//        } else {
+//            throw new UnexpectedTypeException(Toybox.Time.Moment, date, "setDate()");
+//        }
+//   }
+
+//    //! Sets the time
+//    function setTime(time){
+//        if(time instanceof Toybox.System.ClockTime){
+//            clockTime=time;
+//        } else {
+//            throw new UnexpectedTypeException(Toybox.Time, time, "setTime()");
+//        }
+//    }
 
     function getCurrentYear(){
         return currentTimeInfo.year;
@@ -58,12 +68,21 @@ module DateTimeUtility{
 
     //! Gets the current hour.
     function getCurrentHour(){
-        return clockTime.hour;
+        return currentTimeInfo.hour;
     }
 
     //! Gets the current minute
     function getCurrentMinute(){
-        return clockTime.min;
+        return currentTimeInfo.min;
+    }
+
+    //! Gets the current second
+    function getCurrentSecond(){
+        return currentTimeInfo.sec;
+    }
+
+    function getDaysPerCurrentMonth(){
+        return getDaysPerMonth(getCurrentMonth(), getCurrentYear());
     }
 
     //! Return how many days are in month of a year (thanks, February...)
@@ -95,7 +114,7 @@ module DateTimeUtility{
 
     }
 
-    // TODO: This should be moved to a separate Module in order to be accessible from anywhere 
+    // TODO: This should be moved to a separate Module in order to be accessible from anywhere
     // And also testable...
     hidden function checkCorrectType(tested, type){
         if(!(tested instanceof type)){
