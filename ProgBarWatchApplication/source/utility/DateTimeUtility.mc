@@ -10,8 +10,9 @@ module DateTimeUtility{
     hidden const days_per_month = [ 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 
     hidden var format = Time.FORMAT_SHORT;
-    hidden var currentTimeInfo;
-    //hidden var clockTime;
+
+    hidden var currentMoment;
+
 
     //! Set the date and time format
     //! Input: Time format forom Toybox.Time (eg. TIME_FORMAT_SHORT)
@@ -22,75 +23,66 @@ module DateTimeUtility{
     //! Sets the date and time information to current time moment
     function now(){
         var moment = Time.now();
-        currentTimeInfo = Time.Gregorian.info(moment, format);
+    }
 
-        //setTime(System.getClockTime());
-        //setDate(Time.today());
-   }
-
-   //! Initialize the module with custom date/time options
+   //! Initialize the module with custom date/time options dictionary
+   //! Dictionary keys:
+   //! :year, :month, :day, :hour, :minute, :second; all instances of Number
    function moment(options){
         var moment = Time.Gregorian.moment(options);
-        currentTimeInfo = Time.Gregorian.info(moment, format);
    }
 
-//   //! Sets the date
-//   function setDate(date){
-//        if (date instanceof Toybox.Time.Moment){
-//            currentTimeInfo = Time.Gregorian.info(date, format);
-//        } else {
-//            throw new UnexpectedTypeException(Toybox.Time.Moment, date, "setDate()");
-//        }
-//   }
-
-//    //! Sets the time
-//    function setTime(time){
-//        if(time instanceof Toybox.System.ClockTime){
-//            clockTime=time;
-//        } else {
-//            throw new UnexpectedTypeException(Toybox.Time, time, "setTime()");
-//        }
-//    }
-
+    //! Gets the year provided by the date state of this module
+    //! It is dependent on the Time format
     function getCurrentYear(){
-        return currentTimeInfo.year;
+        return Time.Gregorian.Info(currentMoment, format).year;
     }
 
     //! Gets the month provided by the date state of this module
+    //! It is dependent on the Time format
     function getCurrentMonth(){
-        return currentTimeInfo.month;
+        return Time.Gregorian.Info(currentMoment, format).month;
     }
 
     //! Gets the date provided by the state of the module
+    //! It is dependent on the Time format
     function getCurrentDay(){
-        return currentTimeInfo.day;
+        return Time.Gregorian.Info(currentMoment, format).day;
     }
 
     //! Gets the current hour.
+    //! It is dependent on the Time format
     function getCurrentHour(){
-        return currentTimeInfo.hour;
+        return Time.Gregorian.Info(currentMoment, format).hour;
     }
 
     //! Gets the current minute
+    //! It is dependent on the Time format
     function getCurrentMinute(){
-        return currentTimeInfo.min;
+        return Time.Gregorian.Info(currentMoment, format).min;
     }
 
     //! Gets the current second
     function getCurrentSecond(){
-        return currentTimeInfo.sec;
+        return Time.Gregorian.Info(currentMoment, format).sec;
     }
 
+    //! Get the number of days of current month
     function getDaysPerCurrentMonth(){
-        return getDaysPerMonth(getCurrentMonth(), getCurrentYear());
+        var month = Time.Gregorian.Info(currentMoment, Time.FORMAT_SHORT).month;
+        var year = Time.Gregorian.Info(currentMoment, Time.FORMAT_SHORT).year;
+        return getDaysPerMonth(month, year);
     }
 
     //! Return how many days are in month of a year (thanks, February...)
+    //! Years and months are numbers, months have their index starting with 1.
     function getDaysPerMonth(month, year){
 
-        checkCorrectType(year, Toybox.Lang.Number);
+        checkCorrectType(year, Toybox.Lang.Number); //Year is always a number
 
         //Months are indexed starting by 1...
+        //In Time.FORMAT_MEDIUM or Time.FORMAT_LONG are the months represented as string
+        //Need to resolve the mapping...
         if(month < 1 || month > 12 || !(month instanceof Toybox.Lang.Number)){
             throw new InvalidValueException("Invalid month input: " + month);
         }
@@ -105,7 +97,8 @@ module DateTimeUtility{
     }
 
 
-    //! Check whtther a year is a leap year (Approximately...see the rules about the leap years)
+    //! Check whether a year is a leap year (Approximately...see the rules about the leap years)
+    //! It should work at least for the 21st century. I doubt that this code will survive any longer...
     function isLeapYear(year){
 
         checkCorrectType(year, Toybox.Lang.Number);
