@@ -1,18 +1,29 @@
 using DateTimeUtility as Dut;
 using Toybox.Time;
 
+
+//! Tests for functions independent on Time format
 module DateTimeUtilityTests{
-    hidden const DEFAULT_YEAR = 2016
+    hidden const DEFAULT_YEAR = 2016;
     hidden const DEFAULT_MONTH = FEBRUARY;
     hidden const DEFAULT_DAY = 14;
 
     hidden const DEFAULT_HOUR = 13;
     hidden const DEFAULT_MINUTE = 37;
+    hidden const DEFAULT_SECOND = 42;
 
     hidden const LEAP_YEAR = DEFAULT_YEAR;
     hidden const NON_LEAP_YEAR = 2011;
 
-    var dtFactory = new DateTimeFactory(Time.FORMAT_SHORT);
+    hidden const FEBRUARY=2;
+
+    hidden const DEFAULT_OPTIONS = {
+        :year=>DEFAULT_YEAR,
+        :month=>DEFAULT_MONTH,
+        :day=>DEFAULT_DAY,
+        :hour=>DEFAULT_HOUR,
+        :min=>DEFAULT_MINUTE,
+        :sec=>DEFAULT_SECOND};
 
     //! Test if the input year is correctly evaluated as leap year
     (:test)
@@ -57,6 +68,7 @@ module DateTimeUtilityTests{
         return days == 28;
     }
 
+    //! Attempting to pass a month with number lower than 1 should result in Exception.
     (:test)
     function testIrrelevantmonthInputLow(logger){
         try{
@@ -71,6 +83,7 @@ module DateTimeUtilityTests{
         return false;
     }
 
+    //! Attempting to pass a month with number higher than 12 should result in an Exception,
     (:test)
     function testIrrelevantmonthInputHigh(logger){
         try{
@@ -108,28 +121,28 @@ module DateTimeUtilityTests{
     }
 
     (:test)
-    function testSetDate(logger){
-        var date = dtFactory.createDate(DEFAULT_YEAR, DEFAULT_MONTH, DEFAULT_DAY);
-        Dut.setDate(date);
+    function testMoment(logger){
+        Dut.moment(DEFAULT_OPTIONS);
+
         var year = Dut.getCurrentYear();
         var month = Dut.getCurrentMonth();
         var day = Dut.getCurrentDay();
+        var hour = Dut.getCurrentHour();
+        var min = Dut.getCurrentMinute();
+        var sec = Dut.getCurrentSecond();
 
-        return (year == DEFAULT_YEAR) && (month == DEFAULT_MONTH) && (day == DEFAULT_DAY);
+        return (year == DEFAULT_YEAR) &&
+            (month == DEFAULT_MONTH) &&
+            (day == DEFAULT_DAY) &&
+            (hour == DEFAULT_HOUR) &&
+            (min == DEFAULT_MIN) &&
+            (sec == DEFAULT_SEC);
     }
 
     (:test)
-    function testSetDateInvalidValue(logger){
+    function testMomentInvalidValue(logger){
 
     }
 
-    (:test)
-    function testSetTime(logger){
 
-    }
-
-    (:test)
-    function testSetDateInvalidValue(logger){
-
-    }
 }

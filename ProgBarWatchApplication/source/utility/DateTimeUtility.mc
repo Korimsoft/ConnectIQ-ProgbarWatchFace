@@ -22,55 +22,56 @@ module DateTimeUtility{
 
     //! Sets the date and time information to current time moment
     function now(){
-        var moment = Time.now();
+        currentMoment = Time.now();
     }
 
    //! Initialize the module with custom date/time options dictionary
    //! Dictionary keys:
    //! :year, :month, :day, :hour, :minute, :second; all instances of Number
    function moment(options){
-        var moment = Time.Gregorian.moment(options);
+        currentMoment = Time.Gregorian.moment(options);
    }
 
     //! Gets the year provided by the date state of this module
     //! It is dependent on the Time format
     function getCurrentYear(){
-        return Time.Gregorian.Info(currentMoment, format).year;
+        return Time.Gregorian.info(currentMoment, format).year;
+
     }
 
     //! Gets the month provided by the date state of this module
     //! It is dependent on the Time format
     function getCurrentMonth(){
-        return Time.Gregorian.Info(currentMoment, format).month;
+        return Time.Gregorian.info(currentMoment, format).month;
     }
 
     //! Gets the date provided by the state of the module
     //! It is dependent on the Time format
     function getCurrentDay(){
-        return Time.Gregorian.Info(currentMoment, format).day;
+        return Time.Gregorian.info(currentMoment, format).day;
     }
 
     //! Gets the current hour.
     //! It is dependent on the Time format
     function getCurrentHour(){
-        return Time.Gregorian.Info(currentMoment, format).hour;
+        return Time.Gregorian.info(currentMoment, format).hour;
     }
 
     //! Gets the current minute
     //! It is dependent on the Time format
     function getCurrentMinute(){
-        return Time.Gregorian.Info(currentMoment, format).min;
+        return Time.Gregorian.info(currentMoment, format).min;
     }
 
     //! Gets the current second
     function getCurrentSecond(){
-        return Time.Gregorian.Info(currentMoment, format).sec;
+        return Time.Gregorian.info(currentMoment, format).sec;
     }
 
     //! Get the number of days of current month
     function getDaysPerCurrentMonth(){
-        var month = Time.Gregorian.Info(currentMoment, Time.FORMAT_SHORT).month;
-        var year = Time.Gregorian.Info(currentMoment, Time.FORMAT_SHORT).year;
+        var month = Time.Gregorian.info(currentMoment, Time.FORMAT_SHORT).month;
+        var year = Time.Gregorian.info(currentMoment, Time.FORMAT_SHORT).year;
         return getDaysPerMonth(month, year);
     }
 
