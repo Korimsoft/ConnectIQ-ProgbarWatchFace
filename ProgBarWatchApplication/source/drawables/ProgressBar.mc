@@ -4,16 +4,19 @@ module ProgressBars {
 
 //! An outline of the progress bar - this will be rendered as a background for each progress bar.
 hidden const outline = Ui.loadResource(Rez.Drawables.BarOutline);
+hidden const DEFAULT_ORIENTATION = "horizontal";
 
 class ProgressBar extends Ui.Drawable
 {
     hidden var segmentation;
     hidden var filledRatio = 0;
 
-    hidden var defaultHeight;
-    hidden var defaultWidth;
+    hidden var defaultThickness;
+    hidden var defaultLength;
 
-    hidden var filledWidth = 0;
+    hidden var filledLength = 0;
+    
+    hidden var orientation = DEFAULT_ORIENTATION;
 
     function initialize(params){
 
@@ -24,11 +27,12 @@ class ProgressBar extends Ui.Drawable
         //
         locX = params.get(:x);
         locY = params.get(:y);
+		me.segmentation=params.get(:segments);
+        me.defaultLength = params.get(:barWidth);
+        me.defaultThickness = params.get(:barThickness);
+		
+		me.orientation = params.get(:orientation);
 
-        me.segmentation=params.get(:segments);
-
-        me.defaultHeight = Application.getApp().getProperty("BarThickness");
-        me.defaultWidth = Application.getApp().getProperty("BarWidth");
 
     }
 
@@ -59,7 +63,7 @@ class ProgressBar extends Ui.Drawable
 
         if(value >= 0 && value <= me.segmentation){
 
-                me.filledWidth = Math.floor(me.defaultWidth * (value.toDouble()/me.segmentation.toDouble()));
+                me.filledLength = Math.floor(me.defaultLength * (value.toDouble()/me.segmentation.toDouble()));
 
             } else {
                 throw new InvalidValueException("Invalid value of setFill" + value);
