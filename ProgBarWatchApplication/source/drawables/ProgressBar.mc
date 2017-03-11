@@ -25,10 +25,10 @@ class ProgressBar extends Ui.Drawable
         locX = params.get(:x);
         locY = params.get(:y);
 
-        segmentation=params.get(:segments);
+        me.segmentation=params.get(:segments);
 
-        defaultHeight = Application.getApp().getProperty("BarThickness");
-        defaultWidth = Application.getApp().getProperty("BarWidth");
+        me.defaultHeight = Application.getApp().getProperty("BarThickness");
+        me.defaultWidth = Application.getApp().getProperty("BarWidth");
 
     }
 
@@ -48,21 +48,21 @@ class ProgressBar extends Ui.Drawable
     function setSegmentation(value){
 
         if(value < 1 || value > 100){
-            throw new Exception("Invalid value of setSegmentation: " + value);
+            throw new InvalidValueException("Invalid value of setSegmentation: " + value);
         }
 
-        segmentation = value;
+        me.segmentation = value;
     }
 
     //! Set the width of the fill of the progress bar.
     function setFill(value){
 
-        if(value >= 0 && value <= segmentation){
+        if(value >= 0 && value <= me.segmentation){
 
-                filledWidth = Math.floor(defaultWidth * (value.toDouble()/segmentation.toDouble()));
+                me.filledWidth = Math.floor(me.defaultWidth * (value.toDouble()/me.segmentation.toDouble()));
 
             } else {
-                throw new Exception("Invalid value");
+                throw new InvalidValueException("Invalid value of setFill" + value);
             }
     }
 }

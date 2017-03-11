@@ -4,12 +4,11 @@ using Toybox.System as Sys;
 using Toybox.Lang as Lang;
 using Toybox.Application as App;
 using Toybox.ActivityMonitor as Act;
-using Toybox.Position;
+using DateTimeUtility as Dut;
+using ActivityUtility as Aut;
+using SystemUtility as Sut;
 
 class ProgBarWatchView extends Ui.WatchFace {
-
-    // Days of month lookup - February is close enough.
-    hidden const days_per_month = [ 0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 
     function initialize() {
         WatchFace.initialize();
@@ -29,37 +28,31 @@ class ProgBarWatchView extends Ui.WatchFace {
     // Update the view
     function onUpdate(dc) {
 
-        var twoDigitFormat = "%02d";
-        var clockTime = Sys.getClockTime();
-        var date = Time.today();
-        var timeInfo = Time.Gregorian.info(date, Time.FORMAT_SHORT);
-        var month = timeInfo.month;
-        var day = timeInfo.day;
+        //Reload the necessary information
+        Dut.now();
+        var actInfo = Act.getInfo();
+        Aut.setActInfo(actInfo);
 
-        // Lookup the number of segments for the day progress bar.
-        var dayBarSegmentCount = days_per_month[month];
+        //Update the views
+
+        updateBar("HourBar", Dut.getCurrentHour(), dc);
+        updateBar("MinuteBar", Dut.getCurrentMinute(), dc);
+        updateBar("MonthBar", Dut.getCurrentMonth(), dc);
+        updateDayBar("DayBar", Dut.getDaysPerCurrentMonth(), Dut.getCurrentDay(), dc); //This one is specific...different count of days in the month...
+        updateBar("StepsBar", Aut.getStepsGoalPercent(), dc);
+        updateBar("BatteryBar", Sut.getBattery(), dc);
 
 
         var devSettings = Sys.getDeviceSettings();
-        var actInfo = Act.getInfo();
-        var stepsGoalPercent = getStepsGoalPercent(actInfo);
-        var batt = Sys.getSystemStats().battery;
-
-        updateBar("HourBar", clockTime.hour, dc);
-        updateBar("MinuteBar", clockTime.min, dc);
-        updateBar("MonthBar", month, dc);
-        updateDayBar("DayBar", dayBarSegmentCount, day, dc); //This one is specific...different count of days in the month...
-        updateBar("StepsBar", stepsGoalPercent, dc);
-        updateBar("BatteryBar", batt, dc);
-
         updateNotificationIcon("BluetoothNotification", devSettings.phoneConnected, dc);
         updateNotificationIcon("MessageNotification", devSettings.notificationCount > 0, dc);
         updateNotificationIcon("AlarmNotification", devSettings.alarmCount > 0, dc);
-        updateNotificationIcon("MoveNotification", actInfo.moveBarLevel > 0, dc);
+        updateNotificationIcon("MoveNotification", Aut.shouldMove(), dc);
 
         View.onUpdate(dc);
     }
 
+    //! Update the notification icon.
     hidden function updateNotificationIcon(iconId, visible, dc){
         System.println("Updating " + iconId + ": visible: " + visible );
 
@@ -84,27 +77,11 @@ class ProgBarWatchView extends Ui.WatchFace {
         bar.draw(dc);
     }
 
-    hidden function getStepsGoalPercent(actInfo){
-
-        var goalPerc;
-
-        if(actInfo.stepGoal.toDouble() > 0){
-            goalPerc = (actInfo.steps.toDouble()/actInfo.stepGoal.toDouble())*100;
-        }
-        else {
-            goalPerc = 0;
-        }
-        return goalPerc <= 100 ? goalPerc : 100;
-    }
-
-
     hidden function updateTextField(fieldId, value, format){
 
         var color = Gfx.COLOR_BLUE;
         var updatedDrawable = View.findDrawableById(fieldId);
-
         updatedDrawable.setColor(color);
-
         updatedDrawable.setText(value.format(format));
     }
 
