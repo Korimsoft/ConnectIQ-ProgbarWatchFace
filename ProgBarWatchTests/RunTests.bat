@@ -4,8 +4,7 @@ rem Unit test launching script for the
 setlocal
 
 rem Replace with your tested application folder
-set APP_DIR=F:\Eclipse workspace\ProgBarWatch\ProgBarWatchApplication\
-
+set APP_DIR=F:\GarminConnectIQ\Korimsoft\ProgBarWatch\ProgBarWatchApplication\
 set GARMIN_HOME=C:\ConnectIQ SDKs\connectiq-sdk-win-2.2.4\
 
 rem Keep this script located in the Tests folder

@@ -3,75 +3,92 @@ using Toybox.System;
 using Toybox.Time;
 using Toybox.Lang;
 
-//!
+//! Utility module for retrieving various time info.
 module DateTimeUtility{
 
-    // Days of month lookup
+    // Days of month lookup array, months are enumerated from 1 to 12.
     hidden const days_per_month = [ 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 
     hidden var format = Time.FORMAT_SHORT;
 
-    hidden var currentMoment;
+    hidden var currentMoment = Time.now();
+    hidden var currentInfo;
 
 
     //! Set the date and time format
     //! Input: Time format forom Toybox.Time (eg. TIME_FORMAT_SHORT)
     function setFormat(timeFormat){
         format = timeFormat;
+        currentInfo = Time.Gregorian.info(currentMoment, format);
     }
 
     //! Sets the date and time information to current time moment
     function now(){
         currentMoment = Time.now();
+        currentInfo = Time.Gregorian.info(currentMoment, format);
     }
 
    //! Initialize the module with custom date/time options dictionary
    //! Dictionary keys:
    //! :year, :month, :day, :hour, :minute, :second; all instances of Number
+   //!
+   //! The input value in options is in UTC, the output value is in local time!!!
    function moment(options){
         currentMoment = Time.Gregorian.moment(options);
+        currentInfo = Time.Gregorian.info(currentMoment, format);
    }
 
     //! Gets the year provided by the date state of this module
-    //! It is dependent on the Time format
+	//! The returned value is dependent on the Time format
+	//! The returned value is expressed in local time zone
     function getCurrentYear(){
-        return Time.Gregorian.info(currentMoment, format).year;
-
+    	var year = currentInfo.year;
+    	System.println(year);
+        return year;
     }
 
     //! Gets the month provided by the date state of this module
-    //! It is dependent on the Time format
+  	//! The returned value is dependent on the Time format
+    //! The returned value is expressed in local time zone
     function getCurrentMonth(){
-        return Time.Gregorian.info(currentMoment, format).month;
+        return currentInfo.month;
     }
 
     //! Gets the date provided by the state of the module
-    //! It is dependent on the Time format
+    //! The returned value is dependent on the Time format
+    //! The returned value is expressed in local time zone
     function getCurrentDay(){
-        return Time.Gregorian.info(currentMoment, format).day;
+        return currentInfo.day;
     }
 
     //! Gets the current hour.
-    //! It is dependent on the Time format
+    //! The returned value is dependent on the Time format
+    //! The returned value is expressed in local time zone
     function getCurrentHour(){
-        return Time.Gregorian.info(currentMoment, format).hour;
+        return currentInfo.hour;
     }
 
     //! Gets the current minute
-    //! It is dependent on the Time format
+    //! The returned value is dependent on the Time format
+    //! The returned value is expressed in local time zone
     function getCurrentMinute(){
-        return Time.Gregorian.info(currentMoment, format).min;
+        return currentInfo.min;
     }
 
     //! Gets the current second
     function getCurrentSecond(){
-        return Time.Gregorian.info(currentMoment, format).sec;
+    	return currentInfo.sec;
     }
 
     //! Get the number of days of current month
     function getDaysPerCurrentMonth(){
-        var month = Time.Gregorian.info(currentMoment, Time.FORMAT_SHORT).month;
-        var year = Time.Gregorian.info(currentMoment, Time.FORMAT_SHORT).year;
+        
+        //Only the Time.FORMAT_SHORT returns numeric values for month
+        var info = Time.Gregorian.info(currentMoment, Time.FORMAT_SHORT);
+        
+        var month = info.month;
+        var year = info.year;
+        
         return getDaysPerMonth(month, year);
     }
 

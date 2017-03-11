@@ -1,8 +1,9 @@
 using DateTimeUtility as Dut;
 using Toybox.Time;
+using Toybox.System;
 
-
-//! Tests for functions independent on Time format
+//! Tests for DateTimeUtility functions. They use Time.FORMAT_SHORT as reference output since only this format is currently used
+//! in the project.
 module DateTimeUtilityTests{
     hidden const DEFAULT_YEAR = 2016;
     hidden const DEFAULT_MONTH = FEBRUARY;
@@ -17,13 +18,14 @@ module DateTimeUtilityTests{
 
     hidden const FEBRUARY=2;
 
+	// For testing the moment setting
     hidden const DEFAULT_OPTIONS = {
         :year=>DEFAULT_YEAR,
         :month=>DEFAULT_MONTH,
         :day=>DEFAULT_DAY,
         :hour=>DEFAULT_HOUR,
-        :min=>DEFAULT_MINUTE,
-        :sec=>DEFAULT_SECOND};
+        :minute=>DEFAULT_MINUTE,
+        :second=>DEFAULT_SECOND};
 
     //! Test if the input year is correctly evaluated as leap year
     (:test)
@@ -108,7 +110,6 @@ module DateTimeUtilityTests{
 
            if(ex instanceof Toybox.Lang.UnexpectedTypeException){
                 logger.debug("Expected exception caught");
-                logger.debug(ex.getErrorMessage());
                 return true;
             } else {
                 logger.warning("Different exception thrown!");
@@ -120,8 +121,16 @@ module DateTimeUtilityTests{
         return false;
     }
 
+	//! Test setting up a moment
     (:test)
     function testMoment(logger){
+
+		// moment takes time in UTC as an argument,
+		// DateTimeUtility returns local time however
+		// For the test, the returned values must be corrected.
+		// ClockTime.timeZoneOffset is in seconds
+		var timeZoneOffset = Toybox.System.getClockTime().timeZoneOffset/3600;
+		
         Dut.moment(DEFAULT_OPTIONS);
 
         var year = Dut.getCurrentYear();
@@ -130,18 +139,61 @@ module DateTimeUtilityTests{
         var hour = Dut.getCurrentHour();
         var min = Dut.getCurrentMinute();
         var sec = Dut.getCurrentSecond();
+        
+        logger.debug("Original values (UTC): "
+        	+ DEFAULT_OPTIONS[:year] + "-" 
+        	+ DEFAULT_OPTIONS[:month] + "-" 
+        	+ DEFAULT_OPTIONS[:day] + " "
+        	+ DEFAULT_OPTIONS[:hour] + ":"
+        	+ DEFAULT_OPTIONS[:minute] + ":"
+        	+ DEFAULT_OPTIONS[:second] 
+        );
+        
+        logger.debug("Retrieved values (local time): " 
+        	+ year + "-" 
+        	+ month + "-" 
+        	+ day + " "
+        	+ hour + ":"
+        	+ min + ":"
+        	+ sec + " offset: " + timeZoneOffset);
+		
+        var yearMatch = (year == DEFAULT_OPTIONS[:year]);
+        var monthMatch = (month == DEFAULT_OPTIONS[:month]);
+        var dayMatch = (day == DEFAULT_OPTIONS[:day]); 
+        var hourMatch = (hour == DEFAULT_OPTIONS[:hour] + timeZoneOffset);
+        var minuteMatch = (min == DEFAULT_OPTIONS[:minute]);
+        var secondMatch = (sec == DEFAULT_OPTIONS[:second]);
 
-        return (year == DEFAULT_YEAR) &&
-            (month == DEFAULT_MONTH) &&
-            (day == DEFAULT_DAY) &&
-            (hour == DEFAULT_HOUR) &&
-            (min == DEFAULT_MIN) &&
-            (sec == DEFAULT_SEC);
+        return yearMatch &&
+            monthMatch &&
+            dayMatch &&
+            hourMatch &&
+            minuteMatch && 
+            secondMatch;
     }
 
+	//! Invalid value should throw an UnexpectedTypeException.
+	//! This test should prevent the situation when the behavior changes and
+	//! a nonsense date/time value is set instead of crashing. 
     (:test)
     function testMomentInvalidValue(logger){
-
+    	var invalidOptions={:hour=>"SOMETHING SOMETHING!!!"};
+    	try{
+			Dut.moment(invalidOptions);
+		}
+		catch(exception){
+			if(exception instanceof Toybox.Lang.UnexpectedTypeException){
+				logger.debug("Correct exception thrown");
+				return true;
+			} else {
+				logger.warning("Unexpected exception caught");
+				return false;
+			}
+			
+		}
+		
+		logger.warning("No exception caught! Expected an UnexpectedTypeException!");
+		return false;
     }
 
 
