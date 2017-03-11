@@ -36,11 +36,11 @@ class ProgBarWatchView extends Ui.WatchFace {
         //Update the views
 
         updateBar("HourBar", Dut.getCurrentHour(), dc);
-        updateBar("MinuteBar", Dut.getCurrentMinute(), dc);
-        updateBar("MonthBar", Dut.getCurrentMonth(), dc);
-        updateDayBar("DayBar", Dut.getDaysPerCurrentMonth(), Dut.getCurrentDay(), dc); //This one is specific...different count of days in the month...
-        updateBar("StepsBar", Aut.getStepsGoalPercent(), dc);
-        updateBar("BatteryBar", Sut.getBattery(), dc);
+        //updateBar("MinuteBar", Dut.getCurrentMinute(), dc);
+        //updateBar("MonthBar", Dut.getCurrentMonth(), dc);
+        //updateDayBar("DayBar", Dut.getDaysPerCurrentMonth(), Dut.getCurrentDay(), dc); //This one is specific...different count of days in the month...
+        //updateBar("StepsBar", Aut.getStepsGoalPercent(), dc);
+        //updateBar("BatteryBar", Sut.getBattery(), dc);
 
 
         var devSettings = Sys.getDeviceSettings();

@@ -4,7 +4,10 @@ module ProgressBars {
 
 //! An outline of the progress bar - this will be rendered as a background for each progress bar.
 hidden const outline = Ui.loadResource(Rez.Drawables.BarOutline);
-hidden const DEFAULT_ORIENTATION = "horizontal";
+hidden const HORIZONTAL = "horizontal";
+hidden const VERTICAL = "vertical";
+hidden const DEFAULT_ORIENTATION = HORIZONTAL;
+
 
 class ProgressBar extends Ui.Drawable
 {
@@ -28,9 +31,8 @@ class ProgressBar extends Ui.Drawable
         locX = params.get(:x);
         locY = params.get(:y);
 		me.segmentation=params.get(:segments);
-        me.defaultLength = params.get(:barWidth);
-        me.defaultThickness = params.get(:barThickness);
-		
+        me.defaultLength = params.get(:length);
+        me.defaultThickness = params.get(:thickness);
 		me.orientation = params.get(:orientation);
 
 
@@ -40,10 +42,21 @@ class ProgressBar extends Ui.Drawable
     function draw(dc)
     {
 
-        dc.drawBitmap(locX, locY, outline);
-
-        dc.fillRectangle(locX, locY, filledWidth, defaultHeight);
-
+       drawOutline(dc);
+       drawFill(dc);
+		   
+    }
+    
+    hidden function drawFill(dc){
+    if(orientation.equals(HORIZONTAL)){
+			dc.fillRectangle(locX, locY, filledLength, defaultThickness);
+       } else {
+       		dc.fillRectangle(locX, locY, defaultThickness, filledLength);
+		}
+    }
+    
+    hidden function drawOutline(dc){
+    	dc.drawBitmap(locX, locY, outline);  //TODO outline should be also drawn parametrically according to the orientation
     }
 
     //! Set the segmentation of the progress bar. This function will accept

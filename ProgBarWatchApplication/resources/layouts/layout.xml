@@ -23,8 +23,12 @@
 		<param name="x">55</param>
 		<param name="y">3</param>
 		<param name="segments">24</param>
+		<param name="length">100</param>
+		<param name="thickness">15</param>
+		<param name="orientation">"horizontal"</param>
 	</drawable>
 	
+	<!-- 
 	<drawable id="MinuteBar" class="ProgressBars.ProgressBar">
         <param name="x">55</param>
         <param name="y">23</param>
@@ -55,7 +59,8 @@
         <param name="y">103</param>
         <param name="segments">100</param>
     </drawable>
-    
+     -->
+     
     <drawable id="BluetoothNotification" class="NotificationIcons.NotificationIcon">
         <param name="x">55</param>
         <param name="y">123</param>
