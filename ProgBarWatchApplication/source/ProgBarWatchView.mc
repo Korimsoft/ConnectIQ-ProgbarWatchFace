@@ -9,7 +9,11 @@ using ActivityUtility as Aut;
 using SystemUtility as Sut;
 
 class ProgBarWatchView extends Ui.WatchFace {
-
+    	
+  	hidden const MAX_PERCENT = 100; 	
+  	
+  	hidden var daysPerMonth = 30;  	
+  
     function initialize() {
         WatchFace.initialize();
     }
@@ -23,6 +27,8 @@ class ProgBarWatchView extends Ui.WatchFace {
     // the state of this View and prepare it to be shown. This includes
     // loading resources into memory.
     function onShow() {
+    	Dut.now();
+    	me.daysPerMonth = Dut.getDaysPerCurrentMonth();
     }
 
     // Update the view
@@ -35,12 +41,12 @@ class ProgBarWatchView extends Ui.WatchFace {
 
         //Update the views
 
-        updateBar("HourBar", Dut.getCurrentHour(), dc);
-        updateBar("MinuteBar", Dut.getCurrentMinute(), dc);
-        updateBar("MonthBar", Dut.getCurrentMonth(), dc);
-        updateDayBar("DayBar", Dut.getDaysPerCurrentMonth(), Dut.getCurrentDay(), dc); //This one is specific...different count of days in the month...
-        updateBar("StepsBar", Aut.getStepsGoalPercent(), dc);
-        updateBar("BatteryBar", Sut.getBattery(), dc);
+        updateBar("HourBar", Dut.getCurrentHour(), Dut.HOURS_PER_DAY, dc);
+        updateBar("MinuteBar", Dut.getCurrentMinute(), Dut.MINUTES_PER_HOUR, dc);
+        updateBar("MonthBar", Dut.getCurrentMonth(), Dut.MONTHS_PER_YEAR,  dc);
+        updateBar("DayBar", Dut.getCurrentDay(), me.daysPerMonth, dc); //This one is specific...different count of days in the month...
+        updateBar("StepsBar", Aut.getStepsGoalPercent(), MAX_PERCENT, dc);
+        updateBar("BatteryBar", Sut.getBattery(), MAX_PERCENT, dc);
 
 
         var devSettings = Sys.getDeviceSettings();
@@ -62,18 +68,10 @@ class ProgBarWatchView extends Ui.WatchFace {
     }
 
     //! Update the progress bar with new value.
-    hidden function updateBar(barId, value, dc){
+    hidden function updateBar(barId, value, maximum,  dc){
 
         var bar = View.findDrawableById(barId);
-        bar.setFill(value);
-        bar.draw(dc);
-    }
-
-    hidden function updateDayBar(barId, segments, value, dc){
-
-        var bar = View.findDrawableById(barId);
-        bar.setSegmentation(segments);
-        bar.setFill(value);
+        bar.setFillRatio(value.toDouble()/maximum.toDouble());
         bar.draw(dc);
     }
 

@@ -5,7 +5,11 @@ using Toybox.Lang;
 
 //! Utility module for retrieving various time info.
 module DateTimeUtility{
-
+	
+	const MINUTES_PER_HOUR = 60;
+	const HOURS_PER_DAY = 24;
+	const MONTHS_PER_YEAR = 12;
+	
     // Days of month lookup array, months are enumerated from 1 to 12.
     hidden const days_per_month = [ 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 
