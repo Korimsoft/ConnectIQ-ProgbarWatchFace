@@ -1,11 +1,9 @@
 <?xml version="1.0"?>
 <drawables>
     <bitmap id="LauncherIcon" filename="launcher_icon.png" />
-    <bitmap id="BarOutline" filename="bar_outline.png" />
     <bitmap id="BluetoothIcon" filename="bluetooth.png" />
     <bitmap id="MessageIcon" filename="envelope.png" />
     <bitmap id="AlarmIcon" filename="alarm.png" />
     <bitmap id="MoveIcon" filename="move.png"/>
     <bitmap id="VoidIcon" filename="void.png" />
-        
 </drawables>

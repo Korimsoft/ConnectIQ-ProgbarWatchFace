@@ -2,8 +2,6 @@ using Toybox.WatchUi as Ui;
 
 module ProgressBars {
 
-//! An outline of the progress bar - this will be rendered as a background for each progress bar.
-hidden const outline = Ui.loadResource(Rez.Drawables.BarOutline);
 hidden const HORIZONTAL = "horizontal";
 hidden const VERTICAL = "vertical";
 hidden const DEFAULT_ORIENTATION = HORIZONTAL;
@@ -11,11 +9,11 @@ hidden const DEFAULT_ORIENTATION = HORIZONTAL;
 
 class ProgressBar extends Ui.Drawable
 {
-    hidden var segmentation;
+    hidden var segmentation = 1;
     hidden var filledRatio = 0;
 
-    hidden var defaultThickness;
-    hidden var defaultLength;
+    hidden var defaultThickness = 0;
+    hidden var defaultLength = 0;
 
     hidden var filledLength = 0;
     
@@ -30,11 +28,11 @@ class ProgressBar extends Ui.Drawable
         //
         locX = params.get(:x);
         locY = params.get(:y);
-		me.segmentation=params.get(:segments);
-        me.defaultLength = params.get(:length);
+			  	 
+		me.segmentation = params.get(:segments);
+		me.defaultLength = params.get(:length);
         me.defaultThickness = params.get(:thickness);
 		me.orientation = params.get(:orientation);
-
 
     }
 
@@ -56,7 +54,12 @@ class ProgressBar extends Ui.Drawable
     }
     
     hidden function drawOutline(dc){
-    	dc.drawBitmap(locX, locY, outline);  //TODO outline should be also drawn parametrically according to the orientation
+    	//dc.drawBitmap(locX, locY, outline);  //TODO outline should be also drawn parametrically according to the orientation
+    	if(orientation.equals(HORIZONTAL)){
+			dc.drawRectangle(locX, locY, defaultLength, defaultThickness);
+       	} else {
+       		dc.drawRectangle(locX, locY, defaultThickness, defaultLength);
+		}
     }
 
     //! Set the segmentation of the progress bar. This function will accept
