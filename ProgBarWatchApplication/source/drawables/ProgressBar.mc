@@ -8,10 +8,7 @@ hidden const DEFAULT_ORIENTATION = HORIZONTAL;
 
 
 class ProgressBar extends Ui.Drawable
-{
-    hidden var segmentation = 1;
-    hidden var filledRatio = 0;
-
+{    
     hidden var defaultThickness = 0;
     hidden var defaultLength = 0;
 
@@ -28,8 +25,7 @@ class ProgressBar extends Ui.Drawable
         //
         locX = params.get(:x);
         locY = params.get(:y);
-			  	 
-		me.segmentation = params.get(:segments);
+		
 		me.defaultLength = params.get(:length);
         me.defaultThickness = params.get(:thickness);
 		me.orientation = params.get(:orientation);
@@ -54,7 +50,7 @@ class ProgressBar extends Ui.Drawable
     }
     
     hidden function drawOutline(dc){
-    	//dc.drawBitmap(locX, locY, outline);  //TODO outline should be also drawn parametrically according to the orientation
+    	
     	if(orientation.equals(HORIZONTAL)){
 			dc.drawRectangle(locX, locY, defaultLength, defaultThickness);
        	} else {
@@ -73,17 +69,19 @@ class ProgressBar extends Ui.Drawable
 
         me.segmentation = value;
     }
-
-    //! Set the width of the fill of the progress bar.
-    function setFill(value){
-
-        if(value >= 0 && value <= me.segmentation){
-
-                me.filledLength = Math.floor(me.defaultLength * (value.toDouble()/me.segmentation.toDouble()));
-
-            } else {
-                throw new InvalidValueException("Invalid value of setFill" + value);
-            }
+  
+    
+    //! Set the proportion of filled part as value between 0 and 1.
+    function setFillRatio(value){
+    	if(value instanceof Double && value >= 0 && value <= 1){
+    		
+    		me.filledLength = Math.round(me.defaultLength * value);
+    	}
+    	else {
+    		throw new InvalidValueException("Value must be a Double between 0 and 1.");
+    	}
+    	
+    
     }
 }
 }

@@ -22,7 +22,6 @@
 	<drawable id="HourBar" class="ProgressBars.ProgressBar">
 		<param name="x">55</param>
 		<param name="y">3</param>
-		<param name="segments">24</param>
 		<param name="length">145</param>
 		<param name="thickness">15</param>
 		<param name="orientation">"horizontal"</param>
@@ -32,7 +31,6 @@
 	<drawable id="MinuteBar" class="ProgressBars.ProgressBar">
         <param name="x">55</param>
         <param name="y">23</param>
-        <param name="segments">60</param>
         <param name="length">145</param>
 		<param name="thickness">15</param>
 		<param name="orientation">"horizontal"</param>
@@ -41,7 +39,6 @@
     <drawable id="MonthBar" class="ProgressBars.ProgressBar">
         <param name="x">55</param>
         <param name="y">43</param>
-        <param name="segments">12</param>
         <param name="length">145</param>
 		<param name="thickness">15</param>
 		<param name="orientation">"horizontal"</param>
@@ -50,7 +47,6 @@
     <drawable id="DayBar" class="ProgressBars.ProgressBar">
         <param name="x">55</param>
         <param name="y">63</param>
-        <param name="segments">31</param>
         <param name="length">145</param>
 		<param name="thickness">15</param>
 		<param name="orientation">"horizontal"</param>
@@ -60,7 +56,6 @@
     <drawable id="StepsBar" class="ProgressBars.ProgressBar">
         <param name="x">55</param>
         <param name="y">83</param>
-        <param name="segments">100</param>
         <param name="length">145</param>
 		<param name="thickness">15</param>
 		<param name="orientation">"horizontal"</param>
@@ -69,7 +64,6 @@
     <drawable id="BatteryBar" class="ProgressBars.ProgressBar">
         <param name="x">55</param>
         <param name="y">103</param>
-        <param name="segments">100</param>
         <param name="length">145</param>
 		<param name="thickness">15</param>
 		<param name="orientation">"horizontal"</param>
