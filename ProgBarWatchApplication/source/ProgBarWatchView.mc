@@ -71,7 +71,7 @@ class ProgBarWatchView extends Ui.WatchFace {
     hidden function updateBar(barId, value, maximum,  dc){
 
         var bar = View.findDrawableById(barId);
-        bar.setFillRatio(value.toDouble()/maximum.toDouble());
+        bar.setFillRatio(value.toFloat()/maximum.toFloat());
         bar.draw(dc);
     }
 

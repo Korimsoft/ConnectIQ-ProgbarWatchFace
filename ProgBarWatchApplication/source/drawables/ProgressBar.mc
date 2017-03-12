@@ -58,27 +58,14 @@ class ProgressBar extends Ui.Drawable
 		}
     }
 
-    //! Set the segmentation of the progress bar. This function will accept
-    //! values ranging from 1 to 100 since that is the minimum and maximum
-    //! for the app.
-    function setSegmentation(value){
-
-        if(value < 1 || value > 100){
-            throw new InvalidValueException("Invalid value of setSegmentation: " + value);
-        }
-
-        me.segmentation = value;
-    }
-  
-    
     //! Set the proportion of filled part as value between 0 and 1.
     function setFillRatio(value){
-    	if(value instanceof Double && value >= 0 && value <= 1){
-    		
-    		me.filledLength = Math.round(me.defaultLength * value);
+    	if(value instanceof Float && value >= 0 && value <= 1){
+    		var length = me.defaultLength * value;
+    		me.filledLength = Math.round(length); // Math.Round takes Floats as input
     	}
     	else {
-    		throw new InvalidValueException("Value must be a Double between 0 and 1.");
+    		throw new InvalidValueException("Value must be a Float between 0 and 1.");
     	}
     	
     

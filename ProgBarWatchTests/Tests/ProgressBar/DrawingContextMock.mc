@@ -24,7 +24,7 @@ class Rectangle{
 
 	hidden var x=-1, y=-1, width=-1, height=-1;
 
- 	function Initialize(x, y, width, height){
+ 	function initialize(x, y, width, height){
  		me.x = x;
  		me.y = y;
  		me.width = width;
