@@ -2,7 +2,9 @@ using Toybox.Application;
 
 module ProgressBarTests{
 
-    hidden const PARAMS = {
+	hidden const FILLED_RATIO = 0.5;
+
+    hidden const PARAMS_HORIZONTAL = {
         :x=>"0",
         :y=>"0", 
         :segments=>"1", 
@@ -10,8 +12,17 @@ module ProgressBarTests{
         :defaultThickness=>"15",
         :orientation=>"horizontal"
     };
+    
+    hidden const PARAMS_VERTICAL = {
+    	:x=>"0",
+        :y=>"0", 
+        :segments=>"1", 
+        :defaultLength=>"100", 
+        :defaultThickness=>"15",
+        :orientation=>"vertical"
+    };
 
-    //! Segmentation values of the progress bar must be between 0 and 100.
+    //! Segmentation values of the progress bar must be between 1 and 100.
     //! They throw an InvalidValueException otherwise
     (:test)
     function testSegmentationInvalidValueLow(logger) {
@@ -22,7 +33,7 @@ module ProgressBarTests{
         
     }
 
-    //! Segmentation values of the progress bar must be between 0 and 100.
+    //! Segmentation values of the progress bar must be between 1 and 100.
     //! They throw an InvalidValueException otherwise
     (:test)
     function testSegmentationInvalidValueHigh(logger) {
@@ -32,9 +43,33 @@ module ProgressBarTests{
     }
 
 
+    (:test)
+    function testHorizontalDraw(logger){
+    	var drawResults =  getDrawResults(PARAMS_HORIZONTAL);
+    	return checkDrawResults(PARAMS_HORIZONTAL[:x], PARAMS_HORIZONTAL[:y], PARAMS_HORIZONTAL[:defaultLength], PARAMS_HORIZONTAL[:defaultThickness]);
+    	
+    }
+    
+    (:test)
+    function testVerticalDraw(logger){
+    	var drawResults = getDrawResults(PARAMS_VERTICAL);
+    }
+    
+    hidden function getDrawResults(params){
+    		var progBar = new ProgressBars.ProgressBar(params);
+    		progBar.setFillRatio(FILLED_RATIO);
+    		var dc = new DrawingContextMock();
+    		
+    		progBar.draw(dc);
+    		
+    		var results = dc.getRectangleResults;
+    		
+    		
+    }
+    
     hidden function testSegmentationInvalid(value, exception, logger){
        	    
-        var progBar = new ProgressBars.ProgressBar(PARAMS);
+        var progBar = new ProgressBars.ProgressBar(PARAMS_HORIZONTAL);
 
         try{
             progBar.setSegmentation(value);
@@ -52,4 +87,6 @@ module ProgressBarTests{
 		logger.warning("No Exception caught!!!");
         return false;
     }
+    
+    
 }
