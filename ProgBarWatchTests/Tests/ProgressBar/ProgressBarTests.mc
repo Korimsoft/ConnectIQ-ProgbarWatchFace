@@ -21,28 +21,32 @@ module ProgressBarTests{
     };
 
 
+	//! Test if the fill is correctly drawn in horizontal orientation.
     (:test)
     function testFillHorizontal(logger){
     	return testFill(logger, PARAMS_HORIZONTAL);
     	
     }
     
+    //! Test if the fill is correctly drawn in horizontal orientation.
     (:test)
     function testFillVertical(logger){
     	return testFill(logger, PARAMS_VERTICAL);
     }
     
+    //! Test if the outline of the bar is correctly calculated (drawn) in horizontal orientation
     (:test)
     function testOutlineHorizontal(logger){
     	return testOutline(logger, PARAMS_HORIZONTAL);
     }
     
+    //! Test if the outline of the bar is correctly calculated (drawn) in vertical orientation
     (:test)
     function testOutlineVertical(logger){
     	return testOutline(logger, PARAMS_VERTICAL);
     }
-    
-    
+ 
+	//! Test if the fill is correctly drawn.    
     hidden function testFill(logger, params){
     	// Initialization
     	var progBar = new ProgressBars.ProgressBar(params);
@@ -58,6 +62,7 @@ module ProgressBarTests{
     	return fillOk;
     }
     
+    //! Test if the outline is correctly drawn.
     hidden function testOutline(logger, params){
     	
     	var progBar = new ProgressBars.ProgressBar(params);
@@ -76,9 +81,9 @@ module ProgressBarTests{
     	
     }
     
-    //This is the test action itself
-    // Sets the fill of the progress bar
-    // The changed state of the progress bar is readable when the progress bar draws itself
+    //! This is the test action itself
+    //! Sets the fill of the progress bar
+    //! The changed state of the progress bar is readable when the progress bar draws itself
     hidden function getFillDrawResults(logger, progBar, params, fill){
     		   		
     		logger.debug("Filling: " + fill);
@@ -94,7 +99,7 @@ module ProgressBarTests{
     		
     }
     
-    // This is the result validation step
+    //! This is the result validation step
 	hidden function checkShape(logger, returned, expectedParams, lengthRatio)
 	{
 		var expectedX = expectedParams[:x], expectedY = expectedParams[:y], expectedWidth, expectedHeight;

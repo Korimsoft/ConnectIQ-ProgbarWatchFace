@@ -11,7 +11,6 @@ class ProgressBar extends Ui.Drawable
 {    
     hidden var defaultThickness = 0;
     hidden var defaultLength = 0;
-
     hidden var filledLength = 0;
     
     hidden var orientation = DEFAULT_ORIENTATION;
@@ -22,7 +21,6 @@ class ProgressBar extends Ui.Drawable
 
         //Drawable should have locX and locY parameters,
         //however, they apparently cannot be  initialized in the layout.xml (as x and y)
-        //
         locX = params.get(:x);
         locY = params.get(:y);
 		
