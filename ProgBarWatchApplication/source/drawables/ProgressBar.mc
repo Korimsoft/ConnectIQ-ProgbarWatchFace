@@ -2,18 +2,18 @@ using Toybox.WatchUi as Ui;
 
 module ProgressBars {
 
-//! An outline of the progress bar - this will be rendered as a background for each progress bar.
-hidden const outline = Ui.loadResource(Rez.Drawables.BarOutline);
+hidden const HORIZONTAL = "horizontal";
+hidden const VERTICAL = "vertical";
+hidden const DEFAULT_ORIENTATION = HORIZONTAL;
+
 
 class ProgressBar extends Ui.Drawable
-{
-    hidden var segmentation;
-    hidden var filledRatio = 0;
-
-    hidden var defaultHeight;
-    hidden var defaultWidth;
-
-    hidden var filledWidth = 0;
+{    
+    hidden var defaultThickness = 0;
+    hidden var defaultLength = 0;
+    hidden var filledLength = 0;
+    
+    hidden var orientation = DEFAULT_ORIENTATION;
 
     function initialize(params){
 
@@ -21,14 +21,12 @@ class ProgressBar extends Ui.Drawable
 
         //Drawable should have locX and locY parameters,
         //however, they apparently cannot be  initialized in the layout.xml (as x and y)
-        //
         locX = params.get(:x);
         locY = params.get(:y);
-
-        me.segmentation=params.get(:segments);
-
-        me.defaultHeight = Application.getApp().getProperty("BarThickness");
-        me.defaultWidth = Application.getApp().getProperty("BarWidth");
+		
+		me.defaultLength = params.get(:length);
+        me.defaultThickness = params.get(:thickness);
+		me.orientation = params.get(:orientation);
 
     }
 
@@ -36,34 +34,39 @@ class ProgressBar extends Ui.Drawable
     function draw(dc)
     {
 
-        dc.drawBitmap(locX, locY, outline);
-
-        dc.fillRectangle(locX, locY, filledWidth, defaultHeight);
-
+       drawOutline(dc);
+       drawFill(dc);
+		   
+    }
+    
+    hidden function drawFill(dc){
+    if(orientation.equals(HORIZONTAL)){
+			dc.fillRectangle(locX, locY, filledLength, defaultThickness);
+       } else {
+       		dc.fillRectangle(locX, locY, defaultThickness, filledLength);
+		}
+    }
+    
+    hidden function drawOutline(dc){
+    	
+    	if(orientation.equals(HORIZONTAL)){
+			dc.drawRectangle(locX, locY, defaultLength, defaultThickness);
+       	} else {
+       		dc.drawRectangle(locX, locY, defaultThickness, defaultLength);
+		}
     }
 
-    //! Set the segmentation of the progress bar. This function will accept
-    //! values ranging from 1 to 100 since that is the minimum and maximum
-    //! for the app.
-    function setSegmentation(value){
-
-        if(value < 1 || value > 100){
-            throw new InvalidValueException("Invalid value of setSegmentation: " + value);
-        }
-
-        me.segmentation = value;
-    }
-
-    //! Set the width of the fill of the progress bar.
-    function setFill(value){
-
-        if(value >= 0 && value <= me.segmentation){
-
-                me.filledWidth = Math.floor(me.defaultWidth * (value.toDouble()/me.segmentation.toDouble()));
-
-            } else {
-                throw new InvalidValueException("Invalid value of setFill" + value);
-            }
+    //! Set the proportion of filled part as value between 0 and 1.
+    function setFillRatio(value){
+    	if(value instanceof Float && value >= 0 && value <= 1){
+    		var length = me.defaultLength * value;
+    		me.filledLength = Math.round(length); // Math.Round takes Floats as input
+    	}
+    	else {
+    		throw new InvalidValueException("Value must be a Float between 0 and 1.");
+    	}
+    	
+    
     }
 }
 }

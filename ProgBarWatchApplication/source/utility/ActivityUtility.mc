@@ -4,6 +4,7 @@ using Toybox.ActivityMonitor;
 module ActivityUtility{
     hidden var actInfo = null;
 
+	//! Return how many percent of step goal are reached, if the goal was reached, 100 is returned.
     function getStepsGoalPercent(){
 
         var goalPerc;
