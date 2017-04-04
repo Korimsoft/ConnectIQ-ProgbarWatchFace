@@ -8,7 +8,7 @@ set APP_DIR=F:\GarminConnectIQ\Korimsoft\ProgBarWatch\ProgBarWatchApplication\
 set GARMIN_HOME=C:\ConnectIQ SDKs\connectiq-sdk-win-2.2.4\
 
 rem Keep this script located in the Tests folder
-set TEST_DIR=%~dp0%
+set TEST_DIR=%~dp0%\ProgBarWatchTests
 set RESULT_DIR=%TEST_DIR%TestResults
 
 echo "====Running the unit tests===="
